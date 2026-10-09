@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La Tavola — Modern Italian Restaurant</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #faf8f3;
+    color: #222;
+    line-height: 1.6;
+}
+
+img {
+    width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #191919;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 7%;
+}
+
+.logo {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #d6a354;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+}
+
+.navbar ul li a {
+    color: white;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.navbar ul li a:hover {
+    color: #d6a354;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 90vh;
+    background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url("https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1800&q=80")
+        center/cover no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 40px 7%;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero small {
+    color: #d6a354;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: 70px;
+    margin: 15px 0;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #eee;
+}
+
+.btn {
+    display: inline-block;
+    background: #d6a354;
+    color: #111;
+    padding: 13px 28px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section {
+    padding: 90px 7%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title small {
+    color: #d6a354;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.section-title h2 {
+    font-family: Georgia, serif;
+    font-size: 44px;
+    margin-top: 8px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about {
+    background: #faf8f3;
+}
+
+.about-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-image img {
+    height: 450px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.about-content h3 {
+    font-family: Georgia, serif;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    color: #666;
+    margin-bottom: 18px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu {
+    background: #191919;
+    color: white;
+}
+
+.menu .section-title h2 {
+    color: white;
+}
+
+.menu-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.menu-card {
+    padding: 25px;
+    border-bottom: 1px solid #444;
+}
+
+.menu-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.menu-card h3 {
+    font-family: Georgia, serif;
+    font-size: 21px;
+}
+
+.price {
+    color: #d6a354;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.menu-card p {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery {
+    background: #faf8f3;
+}
+
+.gallery-grid {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.gallery-grid img {
+    height: 260px;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.03);
+}
+
+/* =========================
+   REVIEWS
+========================= */
+
+.reviews {
+    background: #f1ede4;
+}
+
+.review-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.review-card {
+    background: white;
+    padding: 35px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+    transition: 0.3s;
+}
+
+.review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+}
+
+.review-stars {
+    color: #d6a354;
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.review-card p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.reviewer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #d6a354;
+    color: #111;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.reviewer-info h4 {
+    margin: 0 0 3px;
+    font-size: 15px;
+}
+
+.reviewer-info span {
+    color: #999;
+    font-size: 12px;
+}
+
+/* =========================
+   RESERVATION
+========================= */
+
+.reservation {
+    background:
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+        url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80")
+        center/cover no-repeat;
+
+    color: white;
+    text-align: center;
+}
+
+.reservation h2 {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.reservation p {
+    color: #ddd;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    background: #faf8f3;
+}
+
+.contact-grid {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.contact-card {
+    background: white;
+    padding: 35px 25px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.contact-card h3 {
+    font-family: Georgia, serif;
+    margin-bottom: 12px;
+}
+
+.contact-card p {
+    color: #666;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #111;
+    color: #aaa;
+    text-align: center;
+    padding: 35px 7%;
+}
+
+footer .logo {
+    margin-bottom: 10px;
+}
+
+footer p {
+    font-size: 14px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.modal-content h2 {
+    font-family: Georgia, serif;
+    margin-bottom: 25px;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #555;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+        padding: 16px 5%;
+    }
+
+    .navbar ul {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 48px;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reservation h2 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    section {
+        padding: 65px 5%;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .section-title h2 {
+        font-size: 34px;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid img {
+        height: 280px;
+    }
+
+    .modal-content {
+        padding: 30px 20px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        La Tavola
+    </div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#reservation">Reserve</a></li>
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <small>Authentic Italian Cuisine</small>
+
+        <h1>La Tavola</h1>
+
+        <p>
+            A beautiful dining experience where traditional Italian
+            flavours meet modern elegance.
+        </p>
+
+        <button class="btn" onclick="openReservation()">
+            Reserve a Table
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="about" id="about">
+
+    <div class="section-title">
+
+        <small>Our Story</small>
+
+        <h2>About La Tavola</h2>
+
+    </div>
+
+
+    <div class="about-grid">
+
+        <div class="about-image">
+
+            <img
+                src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1000&q=80"
+                alt="Restaurant interior"
+            >
+
+        </div>
+
+
+        <div class="about-content">
+
+            <h3>A Taste of Italy</h3>
+
+            <p>
+                La Tavola is a modern Italian restaurant inspired by
+                the rich culinary traditions of Italy.
+            </p>
+
+            <p>
+                Our chefs carefully prepare every dish using fresh
+                ingredients, traditional recipes and modern techniques.
+            </p>
+
+            <p>
+                From handmade pasta to delicious desserts, every plate
+                is created to give our guests a memorable experience.
+            </p>
+
+            <button class="btn" onclick="openReservation()">
+                Book Your Table
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<section class="menu" id="menu">
+
+    <div class="section-title">
+
+        <small>Our Menu</small>
+
+        <h2>Italian Favourites</h2>
+
+    </div>
+
+
+    <div class="menu-grid">
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Bruschetta</h3>
+
+                <span class="price">₹320</span>
+
+            </div>
+
+            <p>
+                Toasted Italian bread topped with fresh tomatoes,
+                basil and olive oil.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Truffle Mushroom Soup</h3>
+
+                <span class="price">₹390</span>
+
+            </div>
+
+            <p>
+                Creamy mushroom soup finished with aromatic truffle oil.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Spaghetti Carbonara</h3>
+
+                <span class="price">₹520</span>
+
+            </div>
+
+            <p>
+                Classic spaghetti with creamy egg sauce, cheese and herbs.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Truffle Tagliatelle</h3>
+
+                <span class="price">₹620</span>
+
+            </div>
+
+            <p>
+                Handmade tagliatelle pasta with a rich truffle cream sauce.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Margherita Pizza</h3>
+
+                <span class="price">₹450</span>
+
+            </div>
+
+            <p>
+                Tomato, mozzarella, basil and extra virgin olive oil.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Chicken Parmigiana</h3>
+
+                <span class="price">₹680</span>
+
+            </div>
+
+            <p>
+                Crispy chicken breast with tomato sauce and melted cheese.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Tiramisu</h3>
+
+                <span class="price">₹350</span>
+
+            </div>
+
+            <p>
+                Classic Italian dessert with coffee, mascarpone and cocoa.
+            </p>
+
+        </div>
+
+
+        <div class="menu-card">
+
+            <div class="menu-card-top">
+
+                <h3>Panna Cotta</h3>
+
+                <span class="price">₹320</span>
+
+            </div>
+
+            <p>
+                Smooth Italian cream dessert served with berry sauce.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GALLERY
+========================= -->
+
+<section class="gallery" id="gallery">
+
+    <div class="section-title">
+
+        <small>Our Restaurant</small>
+
+        <h2>Gallery</h2>
+
+    </div>
+
+
+    <div class="gallery-grid">
+
+        <img
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"
+            alt="Restaurant"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80"
+            alt="Restaurant table"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80"
+            alt="Dining area"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80"
+            alt="Italian food"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80"
+            alt="Pasta"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?auto=format&fit=crop&w=800&q=80"
+            alt="Pizza"
+        >
+
+        <img
+            src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80"
+            alt="Dessert"
+        >
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     REVIEWS
+========================= -->
+
+<section class="reviews" id="reviews">
+
+    <div class="section-title">
+
+        <small>Guest Experiences</small>
+
+        <h2>What Our Guests Say</h2>
+
+    </div>
+
+
+    <div class="review-grid">
+
+
+        <!-- REVIEW 1 -->
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "The food was absolutely delicious and the atmosphere
+                was beautiful. The pasta tasted fresh and authentic.
+                We had a wonderful evening."
+            </p>
+
+            <div class="reviewer">
+
+                <div class="reviewer-avatar">
+                    A
+                </div>
+
+                <div class="reviewer-info">
+
+                    <h4>Arjun Kumar</h4>
+
+                    <span>Chennai</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- REVIEW 2 -->
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "Amazing restaurant with excellent service.
+                The ambience was elegant and the staff were very friendly.
+                The tiramisu was my favourite!"
+            </p>
+
+            <div class="reviewer">
+
+                <div class="reviewer-avatar">
+                    P
+                </div>
+
+                <div class="reviewer-info">
+
+                    <h4>Priya Sharma</h4>
+
+                    <span>Bangalore</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- REVIEW 3 -->
+
+        <div class="review-card">
+
+            <div class="review-stars">
+                ★★★★★
+            </div>
+
+            <p>
+                "A perfect place for a family dinner.
+                Everything from the food to the service was excellent.
+                We will definitely come back."
+            </p>
+
+            <div class="reviewer">
+
+                <div class="reviewer-avatar">
+                    R
+                </div>
+
+                <div class="reviewer-info">
+
+                    <h4>Rahul Menon</h4>
+
+                    <span>Kochi</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     RESERVATION
+========================= -->
+
+<section class="reservation" id="reservation">
+
+    <h2>Make a Reservation</h2>
+
+    <p>
+        Reserve your table and enjoy an unforgettable Italian dining experience.
+    </p>
+
+    <button class="btn" onclick="openReservation()">
+        Reserve Now
+    </button>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="contact" id="contact">
+
+    <div class="section-title">
+
+        <small>Find Us</small>
+
+        <h2>Contact Us</h2>
+
+    </div>
+
+
+    <div class="contact-grid">
+
+
+        <div class="contact-card">
+
+            <h3>Address</h3>
+
+            <p>
+                24 Park Street<br>
+                Chennai, India
+            </p>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <h3>Opening Hours</h3>
+
+            <p>
+                Monday - Sunday<br>
+                11:00 AM - 11:00 PM
+            </p>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <h3>Contact</h3>
+
+            <p>
+                +91 98765 43210<br>
+                hello@latavola.com
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="logo">
+        La Tavola
+    </div>
+
+    <p>
+        © 2026 La Tavola. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =========================
+     RESERVATION MODAL
+========================= -->
+
+<div class="modal" id="reservationModal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeReservation()">
+            &times;
+        </span>
+
+        <h2>Reserve a Table</h2>
+
+
+        <form id="reservationForm">
+
+
+            <div class="form-group">
+
+                <label for="name">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="date">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="date"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="time">
+                    Time
+                </label>
+
+                <select id="time" required>
+
+                    <option value="">
+                        Select Time
+                    </option>
+
+                    <option>
+                        12:00 PM
+                    </option>
+
+                    <option>
+                        1:00 PM
+                    </option>
+
+                    <option>
+                        2:00 PM
+                    </option>
+
+                    <option>
+                        7:00 PM
+                    </option>
+
+                    <option>
+                        8:00 PM
+                    </option>
+
+                    <option>
+                        9:00 PM
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="guests">
+                    Number of Guests
+                </label>
+
+                <select id="guests" required>
+
+                    <option value="">
+                        Select Guests
+                    </option>
+
+                    <option>
+                        1 Guest
+                    </option>
+
+                    <option>
+                        2 Guests
+                    </option>
+
+                    <option>
+                        3 Guests
+                    </option>
+
+                    <option>
+                        4 Guests
+                    </option>
+
+                    <option>
+                        5 Guests
+                    </option>
+
+                    <option>
+                        6+ Guests
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button type="submit" class="btn">
+                Confirm Reservation
+            </button>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   RESERVATION MODAL
+========================= */
+
+function openReservation() {
+
+    document
+        .getElementById("reservationModal")
+        .classList
+        .add("active");
+
+}
+
+
+function closeReservation() {
+
+    document
+        .getElementById("reservationModal")
+        .classList
+        .remove("active");
+
+}
+
+
+/* =========================
+   CLOSE MODAL WHEN CLICKING
+   OUTSIDE
+========================= */
+
+window.addEventListener("click", function(event) {
+
+    const modal =
+        document.getElementById("reservationModal");
+
+    if (event.target === modal) {
+
+        closeReservation();
+
+    }
+
+});
+
+
+/* =========================
+   RESERVATION FORM
+========================= */
+
+document
+    .getElementById("reservationForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("name").value;
+
+        const date =
+            document.getElementById("date").value;
+
+        const time =
+            document.getElementById("time").value;
+
+        const guests =
+            document.getElementById("guests").value;
+
+
+        alert(
+            "Reservation confirmed!\n\n" +
+            "Name: " + name + "\n" +
+            "Date: " + date + "\n" +
+            "Time: " + time + "\n" +
+            "Guests: " + guests
+        );
+
+
+        document
+            .getElementById("reservationForm")
+            .reset();
+
+        closeReservation();
+
+    });
+
+
+/* =========================
+   SET MINIMUM DATE
+========================= */
+
+const today = new Date()
+    .toISOString()
+    .split("T")[0];
+
+document
+    .getElementById("date")
+    .setAttribute("min", today);
+
+
+/* =========================
+   NAVBAR LINK CLICK
+========================= */
+
+document
+    .querySelectorAll(".navbar a")
+    .forEach(function(link) {
+
+        link.addEventListener("click", function() {
+
+            const href = this.getAttribute("href");
+
+            if (href && href.startsWith("#")) {
+
+                const target =
+                    document.querySelector(href);
+
+                if (target) {
+
+                    target.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                }
+
+            }
+
+        });
+
+    });
+
+</script>
+
+</body>
+</html>

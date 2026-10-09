@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hotel management demo blog featuring hospitality tips, guest experience, food, travel and hotel technology.">
+  <title>SeaView Hotel | Hospitality Blog Demo</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+    :root {
+      --navy: #142337;
+      --gold: #cf861e;
+      --gold-dark: #ad6b12;
+      --ink: #172238;
+      --muted: #687184;
+      --paper: #fff;
+      --soft: #f7f5f1;
+      --line: #e9e7e2;
+      --shadow: 0 8px 28px rgba(20, 35, 55, .06);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button { cursor: pointer; }
+
+    .topbar {
+      height: 42px;
+      background: var(--navy);
+      color: #f7f7f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      font-size: 13px;
+      padding: 0 5%;
+    }
+
+    .site-header {
+      height: 92px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 7%;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 3px 12px #0f1f3010;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      font-size: 52px;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .brand strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 29px;
+      line-height: 1.1;
+    }
+
+    .brand strong span,
+    .footer-brand strong span {
+      color: var(--gold);
+    }
+
+    .brand small {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 4px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 14px;
+    }
+
+    .nav-links > a:not(.book-btn) {
+      padding: 12px 0;
+      position: relative;
+    }
+
+    .nav-links > a.active,
+    .nav-links > a:not(.book-btn):hover {
+      color: var(--gold-dark);
+    }
+
+    .nav-links > a.active:after {
+      content: "";
+      height: 2px;
+      background: var(--gold);
+      position: absolute;
+      bottom: 3px;
+      left: 0;
+      right: 0;
+    }
+
+    .book-btn {
+      background: var(--gold);
+      color: #fff !important;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: 700;
+      display: inline-block;
+      transition: .2s;
+      border: 0;
+    }
+
+    .book-btn:hover,
+    .hero-search button:hover,
+    .newsletter button:hover {
+      background: var(--gold-dark);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: none;
+      font-size: 26px;
+      color: var(--navy);
+    }
+
+    .hero {
+      min-height: 390px;
+      background:
+        linear-gradient(90deg, rgba(10,17,24,.78), rgba(10,17,24,.36) 54%, rgba(10,17,24,.04)),
+        url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=2000&q=85')
+        center 54% / cover;
+      display: flex;
+      align-items: center;
+      color: #fff;
+    }
+
+    .hero-content {
+      width: min(1320px, 86%);
+      margin: auto;
+      padding: 44px 0;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--gold);
+    }
+
+    .hero h1 {
+      font: 700 clamp(44px, 5vw, 66px)/1.08 'Playfair Display', serif;
+      margin: 0 0 12px;
+      letter-spacing: -1px;
+    }
+
+    .hero-copy {
+      font-size: 17px;
+      margin: 0 0 28px;
+      color: #f3f2ef;
+    }
+
+    .hero-search {
+      display: flex;
+      width: min(360px, 100%);
+      height: 46px;
+      background: #fff;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .hero-search input {
+      min-width: 0;
+      flex: 1;
+      border: 0;
+      padding: 0 16px;
+      outline: none;
+      color: var(--ink);
+    }
+
+    .hero-search button {
+      width: 56px;
+      border: 0;
+      background: var(--gold);
+      color: white;
+      font-size: 28px;
+    }
+
+    .section-wrap {
+      width: min(1320px, 86%);
+      margin: auto;
+    }
+
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 248px;
+      gap: 28px;
+      padding-top: 34px;
+      padding-bottom: 58px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2,
+    .sidebar h3,
+    .cta-band h2,
+    .review-heading h2 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .section-heading h2 {
+      font-size: 31px;
+      line-height: 1.2;
+      margin: 0 0 4px;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .filter {
+      border: 0;
+      background: #f2f2f1;
+      color: var(--ink);
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 11px;
+    }
+
+    .filter:hover,
+    .filter.active {
+      background: var(--gold);
+      color: #fff;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .post-card {
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 3px 12px rgba(10,20,30,.025);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .post-image {
+      height: 178px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .room-image {
+      background-image: url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80');
+    }
+
+    .pool-image {
+      background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80');
+    }
+
+    .dining-image {
+      background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80');
+    }
+
+    .temple-image {
+      background-image: url('https://images.unsplash.com/photo-1600100397608-f010a6b8a6e5?auto=format&fit=crop&w=800&q=80');
+    }
+
+    .housekeeping-image {
+      background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80');
+    }
+
+    .beach-image {
+      background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=80');
+    }
+
+    .category-tag {
+      position: absolute;
+      bottom: 0;
+      left: 14px;
+      background: #fff;
+      color: var(--navy);
+      padding: 5px 10px;
+      border-radius: 5px 5px 0 0;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .post-body {
+      padding: 14px 16px 17px;
+    }
+
+    .post-body h3 {
+      font: 700 18px/1.35 'Playfair Display', serif;
+      margin: 0 0 8px;
+      min-height: 49px;
+    }
+
+    .post-body > p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 18px;
+      min-height: 42px;
+    }
+
+    .post-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 15px;
+    }
+
+    .read-more {
+      border: 1px solid var(--gold);
+      background: #fff;
+      color: var(--gold-dark);
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .read-more span { padding-left: 8px; }
+
+    .read-more:hover {
+      background: var(--gold);
+      color: white;
+    }
+
+    .sidebar-box {
+      background: var(--soft);
+      padding: 17px;
+      border-radius: 5px;
+      margin-bottom: 24px;
+    }
+
+    .sidebar h3 {
+      font-size: 21px;
+      line-height: 1.25;
+      margin: 0 0 10px;
+    }
+
+    .sidebar-box p,
+    .newsletter p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .gold-line {
+      display: block;
+      width: 34px;
+      height: 2px;
+      background: var(--gold);
+      margin-top: 17px;
+    }
+
+    .popular-box {
+      padding: 0 4px;
+      margin-bottom: 24px;
+    }
+
+    .popular-box h3 { margin-bottom: 12px; }
+
+    .popular-post {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+      line-height: 1.4;
+      margin: 0 0 12px;
+    }
+
+    .popular-post:hover { color: var(--gold-dark); }
+
+    .popular-post small {
+      display: block;
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: 11px;
+    }
+
+    .mini-image {
+      width: 78px;
+      height: 58px;
+      flex: 0 0 78px;
+      border-radius: 4px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .mini-temple {
+      background-image: url('https://images.unsplash.com/photo-1600100397608-f010a6b8a6e5?auto=format&fit=crop&w=200&q=75');
+    }
+
+    .mini-room {
+      background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=200&q=75');
+    }
+
+    .mini-beach {
+      background-image: url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=200&q=75');
+    }
+
+    .newsletter {
+      padding: 17px;
+      background: #f8f6f2;
+      border-radius: 5px;
+    }
+
+    .newsletter form { margin-top: 12px; }
+
+    .newsletter input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #e3e0da;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      outline-color: var(--gold);
+    }
+
+    .newsletter button {
+      width: 100%;
+      border: 0;
+      background: var(--gold);
+      color: #fff;
+      padding: 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .form-note {
+      margin-top: 8px !important;
+      font-size: 12px !important;
+    }
+
+    .empty-state {
+      padding: 24px;
+      background: var(--soft);
+      border-radius: 6px;
+      color: var(--muted);
+    }
+
+    /* REVIEWS */
+
+    .reviews-section {
+      background: var(--soft);
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .review-heading {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 35px;
+    }
+
+    .review-heading .eyebrow { margin-bottom: 7px; }
+
+    .review-heading h2 {
+      font-size: 36px;
+      margin: 0 0 10px;
+      line-height: 1.2;
+    }
+
+    .review-heading > p:not(.eyebrow) {
+      color: var(--muted);
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .review-summary {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 9px;
+      padding: 23px 30px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .score-wrap {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .score {
+      font: 700 42px 'Playfair Display', serif;
+    }
+
+    .summary-stars,
+    .review-stars {
+      color: #f2a62a;
+      letter-spacing: 2px;
+    }
+
+    .summary-stars { font-size: 19px; }
+
+    .score-description {
+      color: #cbd2dc;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .summary-count {
+      font-size: 13px;
+      color: #cbd2dc;
+    }
+
+    .outline-gold-btn {
+      border: 1px solid var(--gold);
+      color: #fff;
+      background: transparent;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-weight: 600;
+      transition: .2s;
+    }
+
+    .outline-gold-btn:hover {
+      background: var(--gold);
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .review-card {
+      padding: 25px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      transition: .2s;
+    }
+
+    .review-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .review-stars {
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .review-card blockquote {
+      margin: 0 0 21px;
+      color: #525d6e;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .review-user {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      background: #f3e2c6;
+      color: var(--gold-dark);
+      display: grid;
+      place-items: center;
+      flex: 0 0 43px;
+      font-weight: 700;
+    }
+
+    .review-user strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .review-user small {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .verified {
+      margin-left: auto;
+      color: #398459;
+      background: #edf7f0;
+      padding: 4px 7px;
+      border-radius: 4px;
+      font-size: 9px;
+      white-space: nowrap;
+    }
+
+    .review-demo-note {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      margin: 20px 0 0;
+    }
+
+    /* CTA */
+
+    .cta-band {
+      padding: 34px 7%;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .cta-band h2 {
+      font-size: 28px;
+      margin: 0 0 5px;
+    }
+
+    .cta-band p:not(.eyebrow) {
+      margin: 0;
+      color: #d2d9e2;
+      font-size: 14px;
+    }
+
+    .cta-band .eyebrow { margin-bottom: 6px; }
+
+    footer {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+      gap: 30px;
+      padding: 40px 7% 18px;
+      background: #0e1928;
+      color: #d7dce3;
+      font-size: 12px;
+    }
+
+    footer h4 {
+      color: #fff;
+      margin: 0 0 12px;
+      font-size: 13px;
+    }
+
+    footer a {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    footer a:hover { color: #f0b34f; }
+
+    .footer-brand strong {
+      font: 700 22px 'Playfair Display', serif;
+      color: white;
+    }
+
+    .footer-brand p,
+    footer p {
+      color: #aeb8c6;
+    }
+
+    .copyright {
+      grid-column: 1/-1;
+      border-top: 1px solid #ffffff20;
+      padding-top: 15px;
+      color: #9ea9b8;
+    }
+
+    /* DIALOGS */
+
+    .post-dialog,
+    .review-dialog {
+      width: min(600px, 90vw);
+      border: 0;
+      border-radius: 10px;
+      padding: 34px;
+      box-shadow: 0 20px 80px #0005;
+      color: var(--ink);
+    }
+
+    .post-dialog::backdrop,
+    .review-dialog::backdrop {
+      background: #101a28aa;
+    }
+
+    .post-dialog h2,
+    .review-dialog h2 {
+      font: 700 30px 'Playfair Display', serif;
+      margin: 0 0 15px;
+    }
+
+    .post-dialog p { color: var(--muted); }
+
+    .dialog-close {
+      position: absolute;
+      right: 14px;
+      top: 10px;
+      border: 0;
+      background: none;
+      font-size: 28px;
+    }
+
+    .demo-note {
+      padding: 12px;
+      background: var(--soft);
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .review-form label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 12px 0 5px;
+    }
+
+    .review-form input,
+    .review-form select,
+    .review-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 10px 12px;
+      outline-color: var(--gold);
+    }
+
+    .review-form textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .review-form button {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    .review-success {
+      color: #34784f;
+      font-size: 13px;
+      margin: 10px 0 0;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media(max-width:1150px) {
+      .site-header { padding: 0 5%; }
+      .nav-links { gap: 17px; }
+      .section-wrap { width: 90%; }
+
+      .blog-layout {
+        grid-template-columns: minmax(0, 1fr) 220px;
+        gap: 20px;
+      }
+
+      .post-grid { gap: 12px; }
+      .post-image { height: 145px; }
+      .post-body { padding: 12px; }
+      .post-body h3 { font-size: 16px; }
+      .filters { max-width: 400px; }
+    }
+
+    @media(max-width:900px) {
+      .topbar {
+        gap: 16px;
+        font-size: 11px;
+      }
+
+      .site-header { height: 78px; }
+
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 18px 6%;
+        box-shadow: 0 12px 18px #14233718;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links > a:not(.book-btn) { padding: 8px 0; }
+
+      .nav-links > a.active:after { display: none; }
+
+      .book-btn { text-align: center; }
+
+      .hero { min-height: 360px; }
+
+      .blog-layout { grid-template-columns: 1fr; }
+
+      .sidebar {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0,1fr));
+        gap: 14px;
+      }
+
+      .sidebar-box,
+      .popular-box { margin-bottom: 0; }
+
+      .popular-post { gap: 7px; }
+
+      .mini-image {
+        width: 55px;
+        flex-basis: 55px;
+        height: 48px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .filters {
+        justify-content: flex-start;
+        max-width: none;
+      }
+
+      .review-grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .review-card:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media(max-width:620px) {
+      .topbar {
+        height: auto;
+        min-height: 35px;
+        gap: 5px 14px;
+        flex-wrap: wrap;
+        padding: 7px 4%;
+        font-size: 10px;
+      }
+
+      .topbar span:last-child { display: none; }
+
+      .site-header {
+        padding: 0 5%;
+        height: 72px;
+      }
+
+      .brand-mark { font-size: 42px; }
+      .brand strong { font-size: 24px; }
+      .nav-links { top: 72px; }
+
+      .hero {
+        min-height: 340px;
+        background-position: 58% center;
+      }
+
+      .hero-content {
+        width: 88%;
+        padding: 40px 0;
+      }
+
+      .hero h1 { font-size: 47px; }
+
+      .hero-copy {
+        font-size: 15px;
+        max-width: 300px;
+      }
+
+      .section-wrap { width: 90%; }
+
+      .blog-layout { padding-top: 28px; }
+      .section-heading h2 { font-size: 27px; }
+      .filters { gap: 6px; }
+      .filter { padding: 7px 10px; }
+
+      .post-grid { grid-template-columns: 1fr; }
+
+      .post-image { height: 205px; }
+
+      .post-body h3,
+      .post-body > p {
+        min-height: 0;
+      }
+
+      .post-body > p { margin-bottom: 14px; }
+
+      .sidebar { grid-template-columns: 1fr; }
+
+      .popular-box { padding: 10px 4px; }
+
+      .mini-image {
+        width: 78px;
+        flex-basis: 78px;
+        height: 58px;
+      }
+
+      .reviews-section { padding: 50px 0; }
+
+      .review-heading h2 { font-size: 29px; }
+
+      .review-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 22px;
+      }
+
+      .review-grid { grid-template-columns: 1fr; }
+
+      .review-card:last-child { grid-column: auto; }
+
+      .review-card { padding: 21px; }
+
+      .cta-band {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 30px 6%;
+      }
+
+      .cta-band h2 { font-size: 25px; }
+
+      footer {
+        grid-template-columns: 1fr 1fr;
+        padding: 30px 6% 18px;
+        gap: 25px 18px;
+      }
+
+      .footer-brand { grid-column: 1/-1; }
+      .copyright { font-size: 11px; }
+
+      .post-dialog,
+      .review-dialog {
+        padding: 28px 22px;
+      }
+
+      .post-dialog h2,
+      .review-dialog h2 {
+        font-size: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <span>📍 Mahabalipuram, Chennai, India</span>
+    <span>☎ +91 98765 43210</span>
+    <span>✉ info@seaviewhotel.com</span>
+  </div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="SeaView Hotel home">
+      <span class="brand-mark">⌂</span>
+      <span>
+        <strong>Sea<span>View</span></strong>
+        <small>H O T E L</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#rooms">Rooms</a>
+      <a class="active" href="#blog">Blog</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <a class="book-btn" href="#contact">Book a Room</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="eyebrow">HOTEL BLOG</p>
+        <h1>Travel. Stay.<br>Explore.</h1>
+        <p class="hero-copy">Tips, guides, and stories to make your stay memorable.</p>
+
+        <form class="hero-search" id="searchForm">
+          <label class="sr-only" for="searchInput">Search blog articles</label>
+          <input id="searchInput" type="search" placeholder="Search articles..." autocomplete="off">
+          <button type="submit" aria-label="Search">⌕</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="blog-layout section-wrap" id="blog">
+
+      <div class="main-column">
+        <div class="section-heading">
+          <div>
+            <h2>Latest Blog Posts</h2>
+            <p>Travel tips, hotel guides, local attractions and more.</p>
+          </div>
+
+          <div class="filters" role="group" aria-label="Filter blog posts">
+            <button class="filter active" data-category="All">All</button>
+            <button class="filter" data-category="Travel Tips">Travel Tips</button>
+            <button class="filter" data-category="Hotel Guide">Hotel Guide</button>
+            <button class="filter" data-category="Local Attractions">Local Attractions</button>
+            <button class="filter" data-category="Food & Dining">Food &amp; Dining</button>
+          </div>
+        </div>
+
+        <div class="post-grid" id="postGrid">
+
+          <article class="post-card" data-category="Hotel Guide" data-search="choose perfect hotel room stay amenities deals hotel guide">
+            <div class="post-image room-image">
+              <span class="category-tag">Hotel Guide</span>
+            </div>
+            <div class="post-body">
+              <h3>How to Choose the Perfect Hotel Room for Your Stay</h3>
+              <p>Tips to select the right room, amenities to look for, and how to get the best deals.</p>
+              <div class="post-meta">
+                <span>▦ Sep 28, 2026</span>
+                <span>◷ 5 min read</span>
+              </div>
+              <button class="read-more" data-post="room">Read More <span>→</span></button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="Travel Tips" data-search="top things to do mahabalipuram beaches monuments hidden gems travel">
+            <div class="post-image pool-image">
+              <span class="category-tag">Travel Tips</span>
+            </div>
+            <div class="post-body">
+              <h3>Top 10 Things to Do in Mahabalipuram</h3>
+              <p>Explore beaches, historical monuments, and hidden gems near our hotel.</p>
+              <div class="post-meta">
+                <span>▦ Sep 25, 2026</span>
+                <span>◷ 6 min read</span>
+              </div>
+              <button class="read-more" data-post="mahabalipuram">Read More <span>→</span></button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="Food & Dining" data-search="food lover guide local cuisine restaurant dining seafood">
+            <div class="post-image dining-image">
+              <span class="category-tag">Food &amp; Dining</span>
+            </div>
+            <div class="post-body">
+              <h3>A Food Lover’s Guide to Local Cuisine</h3>
+              <p>Discover must-try local dishes and restaurants around Mahabalipuram.</p>
+              <div class="post-meta">
+                <span>▦ Sep 20, 2026</span>
+                <span>◷ 4 min read</span>
+              </div>
+              <button class="read-more" data-post="food">Read More <span>→</span></button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="Local Attractions" data-search="best time visit mahabalipuram shore temple attraction sightseeing">
+            <div class="post-image temple-image">
+              <span class="category-tag">Local Attractions</span>
+            </div>
+            <div class="post-body">
+              <h3>The Best Time to Visit Mahabalipuram</h3>
+              <p>Plan a relaxed visit to the Shore Temple, stone carvings, and coastline.</p>
+              <div class="post-meta">
+                <span>▦ Sep 15, 2026</span>
+                <span>◷ 3 min read</span>
+              </div>
+              <button class="read-more" data-post="temple">Read More <span>→</span></button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="Hotel Guide" data-search="hotel housekeeping room management guest satisfaction operations">
+            <div class="post-image housekeeping-image">
+              <span class="category-tag">Hotel Guide</span>
+            </div>
+            <div class="post-body">
+              <h3>Simple Room Management Tips for Hotels</h3>
+              <p>Practical ideas for housekeeping schedules, room readiness, and guest comfort.</p>
+              <div class="post-meta">
+                <span>▦ Sep 10, 2026</span>
+                <span>◷ 5 min read</span>
+              </div>
+              <button class="read-more" data-post="management">Read More <span>→</span></button>
+            </div>
+          </article>
+
+          <article class="post-card" data-category="Travel Tips" data-search="beach activities perfect getaway family travel coast">
+            <div class="post-image beach-image">
+              <span class="category-tag">Travel Tips</span>
+            </div>
+            <div class="post-body">
+              <h3>Beach Activities for a Perfect Getaway</h3>
+              <p>Make the most of the coast with peaceful walks, photography, and local experiences.</p>
+              <div class="post-meta">
+                <span>▦ Sep 05, 2026</span>
+                <span>◷ 4 min read</span>
+              </div>
+              <button class="read-more" data-post="beach">Read More <span>→</span></button>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="empty-state" id="emptyState" hidden>
+          No articles found. Try another search or category.
+        </p>
+      </div>
+
+      <aside class="sidebar">
+
+        <section class="sidebar-box" id="about">
+          <h3>About Our Blog</h3>
+          <p>
+            Get the latest travel tips, hotel updates, local attractions,
+            food guides and more. We share useful stories to help you plan
+            a better and more memorable stay.
+          </p>
+          <span class="gold-line"></span>
+        </section>
+
+        <section class="popular-box">
+          <h3>Popular Posts</h3>
+
+          <a class="popular-post" href="#blog" data-popular="temple">
+            <span class="mini-image mini-temple"></span>
+            <span>
+              Best Time to Visit Mahabalipuram
+              <small>Sep 15, 2026</small>
+            </span>
+          </a>
+
+          <a class="popular-post" href="#blog" data-popular="room">
+            <span class="mini-image mini-room"></span>
+            <span>
+              Hotel Amenities You Should Never Miss
+              <small>Sep 10, 2026</small>
+            </span>
+          </a>
+
+          <a class="popular-post" href="#blog" data-popular="beach">
+            <span class="mini-image mini-beach"></span>
+            <span>
+              Beach Activities for a Perfect Getaway
+              <small>Sep 05, 2026</small>
+            </span>
+          </a>
+        </section>
+
+        <section class="newsletter">
+          <h3>Get Travel Notes</h3>
+          <p>Receive new stories and hotel tips.</p>
+
+          <form id="newsletterForm">
+            <label class="sr-only" for="newsletterEmail">Your email</label>
+            <input id="newsletterEmail" type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+
+          <p class="form-note" id="newsletterNote" aria-live="polite"></p>
+        </section>
+
+      </aside>
+    </section>
+
+    <!-- GUEST REVIEWS -->
+
+    <section class="reviews-section" id="reviews">
+      <div class="section-wrap">
+
+        <div class="review-heading">
+          <p class="eyebrow">GUEST EXPERIENCES</p>
+          <h2>What Our Guests Say</h2>
+          <p>
+            A few sample reviews showing how guest feedback could appear
+            on your hotel website.
+          </p>
+        </div>
+
+        <div class="review-summary">
+
+          <div class="score-wrap">
+            <div class="score">4.8</div>
+
+            <div>
+              <div class="summary-stars" aria-label="4.8 out of 5 stars">
+                ★★★★★
+              </div>
+              <div class="score-description">Excellent guest experience</div>
+            </div>
+          </div>
+
+          <div class="summary-count">
+            Based on 128 demo reviews
+          </div>
+
+          <button class="outline-gold-btn" id="writeReviewBtn">
+            Write a Review
+          </button>
+        </div>
+
+        <div class="review-grid">
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              ★★★★★
+            </div>
+
+            <blockquote>
+              “A peaceful stay close to the coast. The room was clean,
+              comfortable, and the staff were very welcoming. Watching the
+              sunrise near the beach was the highlight of our trip.”
+            </blockquote>
+
+            <div class="review-user">
+              <div class="avatar">AK</div>
+              <div>
+                <strong>Arun Kumar</strong>
+                <small>Chennai · Family stay</small>
+              </div>
+              <span class="verified">✓ VERIFIED</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="5 out of 5 stars">
+              ★★★★★
+            </div>
+
+            <blockquote>
+              “The location made it easy to explore Mahabalipuram.
+              Breakfast was fresh, the room was spacious, and the team
+              helped us plan our visit to the nearby monuments.”
+            </blockquote>
+
+            <div class="review-user">
+              <div class="avatar">PM</div>
+              <div>
+                <strong>Priya Menon</strong>
+                <small>Bengaluru · Couple stay</small>
+              </div>
+              <span class="verified">✓ VERIFIED</span>
+            </div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-stars" aria-label="4 out of 5 stars">
+              ★★★★☆
+            </div>
+
+            <blockquote>
+              “A relaxing weekend by the coast. Check-in was quick and the
+              hotel felt quiet even during the weekend. I especially liked
+              the friendly service and local food recommendations.”
+            </blockquote>
+
+            <div class="review-user">
+              <div class="avatar">RS</div>
+              <div>
+                <strong>Rahul Sharma</strong>
+                <small>Hyderabad · Weekend trip</small>
+              </div>
+              <span class="verified">✓ VERIFIED</span>
+            </div>
+          </article>
+
+        </div>
+
+        <p class="review-demo-note">
+          Sample guest reviews for demonstration purposes only.
+        </p>
+
+      </div>
+    </section>
+
+    <section class="cta-band" id="rooms">
+      <div>
+        <p class="eyebrow">YOUR NEXT STAY STARTS HERE</p>
+        <h2>Make room for a memorable escape.</h2>
+        <p>Comfort, thoughtful service, and the coast just outside.</p>
+      </div>
+
+      <a class="book-btn" href="#contact">Enquire Now →</a>
+    </section>
+
+  </main>
+
+  <footer id="contact">
+
+    <div class="footer-brand">
+      <strong>Sea<span>View</span> Hotel</strong>
+      <p>
+        A sample hotel website created by StudioLaunch for demonstration purposes.
+      </p>
+    </div>
+
+    <div>
+      <h4>Explore</h4>
+      <a href="#home">Home</a>
+      <a href="#blog">Blog</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#rooms">Rooms</a>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Mahabalipuram, Chennai, India</p>
+      <p>info@seaviewhotel.com</p>
+      <p>+91 98765 43210</p>
+    </div>
+
+    <div>
+      <h4>Demo Project</h4>
+      <p>
+        Replace the sample details, images, reviews, and posts with your
+        customer's real content.
+      </p>
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span> SeaView Hotel · Demo website by StudioLaunch
+    </div>
+
+  </footer>
+
+
+  <!-- BLOG DIALOG -->
+
+  <dialog id="postDialog" class="post-dialog">
+
+    <button class="dialog-close" id="closeDialog" aria-label="Close article">
+      ×
+    </button>
+
+    <p class="eyebrow" id="dialogCategory">HOTEL BLOG</p>
+    <h2 id="dialogTitle"></h2>
+    <p id="dialogText"></p>
+
+    <p class="demo-note">
+      Demo article preview — connect a CMS or database to publish full blog posts.
+    </p>
+
+  </dialog>
+
+
+  <!-- REVIEW DIALOG -->
+
+  <dialog id="reviewDialog" class="review-dialog">
+
+    <button
+      class="dialog-close"
+      id="closeReviewDialog"
+      aria-label="Close review form"
+    >
+      ×
+    </button>
+
+    <p class="eyebrow">GUEST REVIEW</p>
+    <h2>Share Your Experience</h2>
+
+    <form class="review-form" id="reviewForm">
+
+      <label for="reviewName">Your name</label>
+      <input
+        id="reviewName"
+        type="text"
+        placeholder="Enter your name"
+        required
+      >
+
+      <label for="reviewRating">Rating</label>
+      <select id="reviewRating" required>
+        <option value="">Select a rating</option>
+        <option value="5">★★★★★ — Excellent</option>
+        <option value="4">★★★★☆ — Very Good</option>
+        <option value="3">★★★☆☆ — Good</option>
+        <option value="2">★★☆☆☆ — Fair</option>
+        <option value="1">★☆☆☆☆ — Poor</option>
+      </select>
+
+      <label for="reviewMessage">Your review</label>
+      <textarea
+        id="reviewMessage"
+        placeholder="Tell us about your stay..."
+        required
+      ></textarea>
+
+      <button class="book-btn" type="submit">
+        Submit Review
+      </button>
+
+    </form>
+
+    <p
+      class="review-success"
+      id="reviewSuccess"
+      aria-live="polite"
+    ></p>
+
+    <p class="demo-note">
+      Demo form only. Reviews are not saved to a server or database.
+    </p>
+
+  </dialog>
+
+
+  <script>
+
+    /* MOBILE MENU */
+
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+
+      menuToggle.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+
+        navLinks.classList.remove("open");
+
+        menuToggle.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        menuToggle.textContent = "☰";
+      });
+    });
+
+
+    /* YEAR */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /* BLOG FILTERING */
+
+    const filters =
+      document.querySelectorAll(".filter");
+
+    const cards =
+      [...document.querySelectorAll(".post-card")];
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const emptyState =
+      document.getElementById("emptyState");
+
+    let activeCategory = "All";
+
+
+    function filterPosts() {
+
+      const query =
+        searchInput.value.trim().toLowerCase();
+
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+
+        const categoryMatches =
+          activeCategory === "All" ||
+          card.dataset.category === activeCategory;
+
+        const searchMatches =
+          !query ||
+          `${card.dataset.search} ${card.textContent}`
+            .toLowerCase()
+            .includes(query);
+
+        const visible =
+          categoryMatches && searchMatches;
+
+        card.hidden = !visible;
+
+        if (visible) {
+          visibleCount++;
+        }
+
+      });
+
+      emptyState.hidden =
+        visibleCount !== 0;
+    }
+
+
+    filters.forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        activeCategory =
+          button.dataset.category;
+
+        filters.forEach(item => {
+          item.classList.toggle(
+            "active",
+            item === button
+          );
+        });
+
+        filterPosts();
+      });
+
+    });
+
+
+    document
+      .getElementById("searchForm")
+      .addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        filterPosts();
+
+        document
+          .getElementById("blog")
+          .scrollIntoView({
+            behavior: "smooth"
+          });
+
+      });
+
+
+    searchInput.addEventListener(
+      "input",
+      filterPosts
+    );
+
+
+    /* BLOG POSTS */
+
+    const postContent = {
+
+      room: {
+        category: "HOTEL GUIDE",
+        title: "How to Choose the Perfect Hotel Room for Your Stay",
+        text: "Start with the purpose of your trip, then compare room size, bed options, natural light, Wi-Fi, accessibility, and cancellation terms. Before booking, check recent guest feedback and contact the hotel if you have special requests. A clear room-selection process helps guests feel confident before they arrive."
+      },
+
+      mahabalipuram: {
+        category: "TRAVEL TIPS",
+        title: "Top Things to Do in Mahabalipuram",
+        text: "Explore the Shore Temple, Pancha Rathas, Arjuna’s Penance, local craft shops, and the beach. Begin early to avoid the strongest afternoon sun, carry drinking water, and allow time for local food. Check current site timings and ticket details before travelling."
+      },
+
+      food: {
+        category: "FOOD & DINING",
+        title: "A Food Lover’s Guide to Local Cuisine",
+        text: "Try regional South Indian meals, fresh seafood from reputable restaurants, dosa varieties, and local filter coffee. Ask about ingredients and spice levels when ordering. Hotel teams can improve guest experiences by offering clear menus, local recommendations, and options for common dietary needs."
+      },
+
+      temple: {
+        category: "LOCAL ATTRACTIONS",
+        title: "The Best Time to Visit Mahabalipuram",
+        text: "Many visitors prefer the cooler morning or late-afternoon hours for outdoor sightseeing. Plan your route around the Shore Temple and nearby heritage monuments, wear comfortable footwear, and check official opening times and weather conditions before you set out."
+      },
+
+      management: {
+        category: "HOTEL GUIDE",
+        title: "Simple Room Management Tips for Hotels",
+        text: "Use a live room-status board, standardise housekeeping checklists, record maintenance issues, and coordinate reception with housekeeping. Prioritise rooms by expected arrival time and inspect each room before marking it ready."
+      },
+
+      beach: {
+        category: "TRAVEL TIPS",
+        title: "Beach Activities for a Perfect Getaway",
+        text: "Enjoy a sunrise walk, take coastal photographs, explore local cafés, or simply relax by the shore. Follow local safety guidance, respect warning flags, avoid leaving litter, and check the sea conditions before entering the water."
+      }
+
+    };
+
+
+    const dialog =
+      document.getElementById("postDialog");
+
+
+    function openPost(key) {
+
+      const post =
+        postContent[key];
+
+      if (!post) return;
+
+      document.getElementById(
+        "dialogCategory"
+      ).textContent = post.category;
+
+      document.getElementById(
+        "dialogTitle"
+      ).textContent = post.title;
+
+      document.getElementById(
+        "dialogText"
+      ).textContent = post.text;
+
+      dialog.showModal();
+    }
+
+
+    document
+      .querySelectorAll(".read-more")
+      .forEach(button => {
+
+        button.addEventListener(
+          "click",
+          () => openPost(
+            button.dataset.post
+          )
+        );
+
+      });
+
+
+    document
+      .querySelectorAll("[data-popular]")
+      .forEach(link => {
+
+        link.addEventListener(
+          "click",
+          () => openPost(
+            link.dataset.popular
+          )
+        );
+
+      });
+
+
+    document
+      .getElementById("closeDialog")
+      .addEventListener(
+        "click",
+        () => dialog.close()
+      );
+
+
+    dialog.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === dialog) {
+          dialog.close();
+        }
+
+      }
+    );
+
+
+    /* NEWSLETTER */
+
+    document
+      .getElementById("newsletterForm")
+      .addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const email =
+          document
+            .getElementById("newsletterEmail")
+            .value
+            .trim();
+
+        document
+          .getElementById("newsletterNote")
+          .textContent =
+          `Thanks! ${email} has been added to this demo's preview list. No email was sent.`;
+
+        event.target.reset();
+
+      });
+
+
+    /* REVIEW DIALOG */
+
+    const reviewDialog =
+      document.getElementById("reviewDialog");
+
+    const writeReviewBtn =
+      document.getElementById("writeReviewBtn");
+
+    const closeReviewDialog =
+      document.getElementById("closeReviewDialog");
+
+
+    writeReviewBtn.addEventListener(
+      "click",
+      () => {
+
+        document.getElementById(
+          "reviewSuccess"
+        ).textContent = "";
+
+        reviewDialog.showModal();
+
+      }
+    );
+
+
+    closeReviewDialog.addEventListener(
+      "click",
+      () => reviewDialog.close()
+    );
+
+
+    reviewDialog.addEventListener(
+      "click",
+      event => {
+
+        if (event.target === reviewDialog) {
+          reviewDialog.close();
+        }
+
+      }
+    );
+
+
+    /* DEMO REVIEW SUBMISSION */
+
+    document
+      .getElementById("reviewForm")
+      .addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const name =
+          document
+            .getElementById("reviewName")
+            .value
+            .trim();
+
+        document.getElementById(
+          "reviewSuccess"
+        ).textContent =
+          `Thank you, ${name}! Your demo review was submitted successfully.`;
+
+        event.target.reset();
+
+      });
+
+  </script>
+
+</body>
+</html>

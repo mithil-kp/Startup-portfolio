@@ -1,0 +1,1194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Find affordable rental rooms, PGs and shared accommodation for students.">
+<title>NestFind | Student Room Rental</title>
+
+<style>
+:root {
+    --primary: #087f70;
+    --dark: #17332f;
+    --muted: #6b7c78;
+    --bg: #f5f8f7;
+    --white: #ffffff;
+    --border: #e0e9e6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--dark);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--dark);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 11px 18px;
+    font-weight: 700;
+}
+
+.primary-btn:hover {
+    background: #06675c;
+}
+
+.hero {
+    background: #e8f4ef;
+    padding: 65px 24px 55px;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    background: #d3ebe2;
+    color: #076d5e;
+    padding: 6px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 17px;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 53px);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -1.5px;
+}
+
+.hero h1 span {
+    color: var(--primary);
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 620px;
+    margin: 0 auto 30px;
+}
+
+.search-box {
+    max-width: 1050px;
+    margin: auto;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr auto;
+    gap: 15px;
+    text-align: left;
+    box-shadow: 0 12px 35px #17332f0b;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.field input,
+.field select,
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    color: var(--dark);
+    outline: none;
+}
+
+.field input:focus,
+.field select:focus,
+.form-control:focus {
+    border-color: var(--primary);
+}
+
+.search-btn {
+    align-self: end;
+    min-height: 45px;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    color: #46655e;
+    font-size: 13px;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 50px 24px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.section-heading h2 {
+    font-size: 29px;
+    letter-spacing: -.5px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.filter-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.filter-btn {
+    padding: 9px 16px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    color: var(--dark);
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.results-count {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 17px;
+}
+
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.room-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.room-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px #17332f10;
+}
+
+.room-top {
+    min-height: 120px;
+    background: #e8f4ef;
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.room-symbol {
+    width: 66px;
+    height: 66px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: white;
+    color: var(--primary);
+    font-size: 30px;
+}
+
+.room-type {
+    display: inline-block;
+    background: white;
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.favorite {
+    border: none;
+    background: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    color: #63736e;
+    font-size: 20px;
+}
+
+.favorite.saved {
+    color: #e34d67;
+}
+
+.room-content {
+    padding: 19px;
+}
+
+.room-content h3 {
+    font-size: 19px;
+    margin-bottom: 5px;
+}
+
+.location {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+}
+
+.price {
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.price small {
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--muted);
+}
+
+.room-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.fact {
+    font-size: 11px;
+    background: #f1f6f4;
+    border-radius: 6px;
+    padding: 5px 8px;
+    color: #47645d;
+}
+
+.room-bottom {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.room-bottom button {
+    flex: 1;
+    font-size: 12px;
+    padding: 10px 8px;
+}
+
+.outline-btn {
+    background: white;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 15px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    grid-column: 1 / -1;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: var(--muted);
+    margin-bottom: 18px;
+}
+
+.how-section {
+    background: white;
+    padding: 45px 24px;
+}
+
+.how-inner {
+    max-width: 1152px;
+    margin: auto;
+}
+
+.how-inner > h2 {
+    text-align: center;
+    font-size: 29px;
+}
+
+.how-inner > p {
+    text-align: center;
+    color: var(--muted);
+    margin: 8px 0 30px;
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.step {
+    padding: 25px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: #e1f2eb;
+    color: var(--primary);
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.step p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+footer {
+    background: #17332f;
+    color: white;
+    padding: 28px 24px;
+}
+
+.footer-inner {
+    max-width: 1152px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+footer p {
+    font-size: 13px;
+    color: #c0d3ce;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: #102a25a8;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 520px;
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    gap: 10px;
+}
+
+.close-btn {
+    border: none;
+    background: #f0f5f3;
+    border-radius: 8px;
+    padding: 5px 11px;
+    font-size: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.full-btn {
+    width: 100%;
+    padding: 13px;
+}
+
+.notice {
+    background: #e8f4ef;
+    color: #176458;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 850px) {
+    .room-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .search-box {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 580px) {
+    .navbar {
+        padding: 13px 16px;
+        flex-wrap: wrap;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 45px 16px;
+    }
+
+    .search-box {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 35px 16px;
+    }
+
+    .room-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .section-heading h2 {
+        font-size: 25px;
+    }
+
+    .features {
+        gap: 12px;
+    }
+
+    .how-section {
+        padding: 35px 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <nav class="navbar">
+        <a href="#" class="logo">Nest<span>Find.</span></a>
+
+        <div class="nav-links">
+            <a href="#rooms">Find a Room</a>
+            <a href="#how">How It Works</a>
+            <a href="#contact">Contact</a>
+            <button class="primary-btn" onclick="openOwnerForm()">
+                + List Your Room
+            </button>
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <span class="eyebrow">YOUR NEXT PLACE STARTS HERE</span>
+
+    <h1>Find a room that<br><span>feels like home.</span></h1>
+
+    <p>
+        Discover affordable rental rooms, PGs and shared stays
+        near your college, campus or workplace.
+    </p>
+
+    <form class="search-box" id="searchForm">
+        <div class="field">
+            <label for="locationSearch">City or area</label>
+            <input id="locationSearch"
+                   type="text"
+                   placeholder="e.g. Velachery, Chennai">
+        </div>
+
+        <div class="field">
+            <label for="budget">Monthly budget</label>
+            <select id="budget">
+                <option value="all">Any budget</option>
+                <option value="5000">Up to ₹5,000</option>
+                <option value="8000">Up to ₹8,000</option>
+                <option value="12000">Up to ₹12,000</option>
+                <option value="20000">Up to ₹20,000</option>
+            </select>
+        </div>
+
+        <div class="field">
+            <label for="roomTypeSearch">Room type</label>
+            <select id="roomTypeSearch">
+                <option value="all">All types</option>
+                <option value="Private Room">Private room</option>
+                <option value="Shared Room">Shared room</option>
+                <option value="PG">PG / Hostel</option>
+            </select>
+        </div>
+
+        <button class="primary-btn search-btn" type="submit">
+            Search Rooms
+        </button>
+    </form>
+
+    <div class="features">
+        <span>✓ Student-friendly stays</span>
+        <span>✓ Clear rental prices</span>
+        <span>✓ Easy owner contact</span>
+    </div>
+</section>
+
+<main id="rooms">
+    <div class="section-heading">
+        <div>
+            <h2>Explore rental rooms</h2>
+            <p>Find a place that fits your budget and lifestyle.</p>
+        </div>
+
+        <button class="primary-btn" onclick="openOwnerForm()">
+            + Add a Listing
+        </button>
+    </div>
+
+    <div class="filter-row">
+        <button class="filter-btn active" data-type="all">All rooms</button>
+        <button class="filter-btn" data-type="Private Room">Private room</button>
+        <button class="filter-btn" data-type="Shared Room">Shared room</button>
+        <button class="filter-btn" data-type="PG">PG / Hostel</button>
+    </div>
+
+    <p class="results-count" id="resultsCount" aria-live="polite"></p>
+
+    <div class="room-grid" id="roomGrid"></div>
+</main>
+
+<section class="how-section" id="how">
+    <div class="how-inner">
+        <h2>Find your room in 3 easy steps</h2>
+        <p>A simple way for students to discover their next stay.</p>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">01</div>
+                <h3>Search your area</h3>
+                <p>Enter a city, neighborhood or area close to your college.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">02</div>
+                <h3>Compare rooms</h3>
+                <p>Check rent, deposit, facilities and accommodation type.</p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">03</div>
+                <h3>Contact the owner</h3>
+                <p>Ask questions and arrange a visit before making a decision.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="footer-inner">
+        <div>
+            <a href="#" class="logo" style="color:white">
+                NestFind.
+            </a>
+            <p>Helping students find a place to call home.</p>
+        </div>
+
+        <p>Demo project · © <span id="year"></span> NestFind</p>
+    </div>
+</footer>
+
+<!-- Room details modal -->
+<div class="modal" id="detailsModal" role="dialog"
+     aria-modal="true" aria-labelledby="detailsTitle">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="detailsTitle">Room Details</h2>
+            <button class="close-btn" onclick="closeModal('detailsModal')"
+                    aria-label="Close">&times;</button>
+        </div>
+        <div id="detailsBody"></div>
+    </div>
+</div>
+
+<!-- Owner listing modal -->
+<div class="modal" id="ownerModal" role="dialog"
+     aria-modal="true" aria-labelledby="ownerTitle">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="ownerTitle">List Your Room</h2>
+            <button class="close-btn" onclick="closeModal('ownerModal')"
+                    aria-label="Close">&times;</button>
+        </div>
+
+        <form id="ownerForm">
+            <div class="form-group">
+                <label for="ownerName">Owner name</label>
+                <input class="form-control" id="ownerName"
+                       required maxlength="80" placeholder="Your name">
+            </div>
+
+            <div class="form-group">
+                <label for="ownerPhone">Contact phone number</label>
+                <input class="form-control" id="ownerPhone"
+                       type="tel" required pattern="[0-9+\s()-]{10,18}"
+                       placeholder="Your contact number">
+            </div>
+
+            <div class="form-group">
+                <label for="newTitle">Room title</label>
+                <input class="form-control" id="newTitle"
+                       required maxlength="100"
+                       placeholder="e.g. Furnished room near college">
+            </div>
+
+            <div class="form-group">
+                <label for="newLocation">Location</label>
+                <input class="form-control" id="newLocation"
+                       required maxlength="120"
+                       placeholder="Area, city">
+            </div>
+
+            <div class="form-group">
+                <label for="newRent">Monthly rent (₹)</label>
+                <input class="form-control" id="newRent"
+                       type="number" min="1" max="1000000"
+                       required placeholder="e.g. 6000">
+            </div>
+
+            <div class="form-group">
+                <label for="newDeposit">Security deposit (₹)</label>
+                <input class="form-control" id="newDeposit"
+                       type="number" min="0" max="10000000"
+                       required placeholder="e.g. 10000">
+            </div>
+
+            <div class="form-group">
+                <label for="newType">Accommodation type</label>
+                <select class="form-control" id="newType" required>
+                    <option value="Private Room">Private room</option>
+                    <option value="Shared Room">Shared room</option>
+                    <option value="PG">PG / Hostel</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="newFacilities">Facilities</label>
+                <input class="form-control" id="newFacilities"
+                       maxlength="200"
+                       placeholder="Wi-Fi, furnished, meals">
+            </div>
+
+            <button class="primary-btn full-btn" type="submit">
+                Add Room to Demo
+            </button>
+
+            <div id="ownerNotice" class="notice hidden" aria-live="polite"></div>
+        </form>
+    </div>
+</div>
+
+<script>
+const rooms = [
+    {
+        id: 1,
+        title: "Comfortable Private Room",
+        location: "Velachery, Chennai",
+        rent: 6500,
+        deposit: 10000,
+        type: "Private Room",
+        facilities: ["Wi-Fi", "Furnished", "Attached bathroom"],
+        owner: "Demo Owner",
+        phone: "9876543210"
+    },
+    {
+        id: 2,
+        title: "Affordable Shared Student Room",
+        location: "Tambaram, Chennai",
+        rent: 4000,
+        deposit: 5000,
+        type: "Shared Room",
+        facilities: ["Wi-Fi", "Water", "Shared kitchen"],
+        owner: "Demo Owner",
+        phone: "9876543211"
+    },
+    {
+        id: 3,
+        title: "Student PG Accommodation",
+        location: "OMR, Chennai",
+        rent: 5500,
+        deposit: 8000,
+        type: "PG",
+        facilities: ["Furnished", "Meals available", "Wi-Fi"],
+        owner: "Demo Owner",
+        phone: "9876543212"
+    },
+    {
+        id: 4,
+        title: "Budget Single Occupancy Room",
+        location: "Chromepet, Chennai",
+        rent: 4500,
+        deposit: 6000,
+        type: "Private Room",
+        facilities: ["Water", "Fan", "Wardrobe"],
+        owner: "Demo Owner",
+        phone: "9876543213"
+    },
+    {
+        id: 5,
+        title: "Shared Room Near Colleges",
+        location: "Guindy, Chennai",
+        rent: 3500,
+        deposit: 4000,
+        type: "Shared Room",
+        facilities: ["Wi-Fi", "Water", "Power backup"],
+        owner: "Demo Owner",
+        phone: "9876543214"
+    },
+    {
+        id: 6,
+        title: "Furnished Student PG",
+        location: "Porur, Chennai",
+        rent: 7500,
+        deposit: 10000,
+        type: "PG",
+        facilities: ["Furnished", "Meals", "Wi-Fi"],
+        owner: "Demo Owner",
+        phone: "9876543215"
+    }
+];
+
+let selectedType = "all";
+let nextId = 7;
+
+const roomGrid = document.getElementById("roomGrid");
+const resultsCount = document.getElementById("resultsCount");
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+function formatMoney(amount) {
+    return "₹" + Number(amount).toLocaleString("en-IN");
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[char]);
+}
+
+function getRoomSymbol(type) {
+    if (type === "PG") return "⌂";
+    if (type === "Shared Room") return "♧";
+    return "⌂";
+}
+
+function getFilteredRooms() {
+    const location = document.getElementById("locationSearch")
+        .value.trim().toLowerCase();
+
+    const budget = document.getElementById("budget").value;
+    const searchType = document.getElementById("roomTypeSearch").value;
+
+    return rooms.filter(room => {
+        const matchesLocation =
+            room.location.toLowerCase().includes(location) ||
+            room.title.toLowerCase().includes(location);
+
+        const matchesBudget =
+            budget === "all" || room.rent <= Number(budget);
+
+        const matchesType =
+            selectedType === "all" || room.type === selectedType;
+
+        const matchesSearchType =
+            searchType === "all" || room.type === searchType;
+
+        return matchesLocation && matchesBudget &&
+               matchesType && matchesSearchType;
+    });
+}
+
+function renderRooms() {
+    const filteredRooms = getFilteredRooms();
+
+    resultsCount.textContent =
+        `${filteredRooms.length} room${filteredRooms.length === 1 ? "" : "s"} found`;
+
+    if (filteredRooms.length === 0) {
+        roomGrid.innerHTML = `
+            <div class="empty-state">
+                <h3>No rooms found</h3>
+                <p>Try another area, budget or accommodation type.</p>
+                <button class="primary-btn" onclick="resetFilters()">
+                    Clear Filters
+                </button>
+            </div>`;
+        return;
+    }
+
+    roomGrid.innerHTML = filteredRooms.map(room => `
+        <article class="room-card">
+            <div class="room-top">
+                <div class="room-symbol" aria-hidden="true">
+                    ${getRoomSymbol(room.type)}
+                </div>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <span class="room-type">${escapeHTML(room.type)}</span>
+                    <button class="favorite" aria-label="Save room"
+                        aria-pressed="false"
+                        onclick="toggleFavorite(this)"
+                        title="Save room">♡</button>
+                </div>
+            </div>
+
+            <div class="room-content">
+                <h3>${escapeHTML(room.title)}</h3>
+                <p class="location">⌖ ${escapeHTML(room.location)}</p>
+
+                <div class="price">
+                    ${formatMoney(room.rent)}
+                    <small>/ month</small>
+                </div>
+
+                <div class="room-facts">
+                    ${room.facilities.slice(0, 3).map(item =>
+                        `<span class="fact">${escapeHTML(item)}</span>`
+                    ).join("")}
+                </div>
+
+                <div class="room-bottom">
+                    <button class="outline-btn"
+                        onclick="showDetails(${room.id})">
+                        View Details
+                    </button>
+                    <button class="primary-btn"
+                        onclick="contactOwner(${room.id})">
+                        Contact Owner
+                    </button>
+                </div>
+            </div>
+        </article>
+    `).join("");
+}
+
+function toggleFavorite(button) {
+    const saved = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", String(saved));
+    button.classList.toggle("saved", saved);
+    button.textContent = saved ? "♥" : "♡";
+}
+
+function resetFilters() {
+    document.getElementById("locationSearch").value = "";
+    document.getElementById("budget").value = "all";
+    document.getElementById("roomTypeSearch").value = "all";
+    selectedType = "all";
+
+    document.querySelectorAll(".filter-btn").forEach(button => {
+        button.classList.toggle(
+            "active",
+            button.dataset.type === "all"
+        );
+    });
+
+    renderRooms();
+}
+
+document.getElementById("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+    renderRooms();
+    document.getElementById("rooms").scrollIntoView({
+        behavior: "smooth"
+    });
+});
+
+document.querySelectorAll(".filter-btn").forEach(button => {
+    button.addEventListener("click", () => {
+        selectedType = button.dataset.type;
+
+        document.querySelectorAll(".filter-btn").forEach(item => {
+            item.classList.toggle("active", item === button);
+        });
+
+        renderRooms();
+    });
+});
+
+function showDetails(id) {
+    const room = rooms.find(item => item.id === id);
+    if (!room) return;
+
+    document.getElementById("detailsTitle").textContent = room.title;
+
+    document.getElementById("detailsBody").innerHTML = `
+        <p class="location">${escapeHTML(room.location)}</p>
+        <p><strong>Monthly rent:</strong> ${formatMoney(room.rent)}</p>
+        <p><strong>Security deposit:</strong> ${formatMoney(room.deposit)}</p>
+        <p><strong>Room type:</strong> ${escapeHTML(room.type)}</p>
+        <p><strong>Owner:</strong> ${escapeHTML(room.owner)}</p>
+        <br>
+        <h3>Facilities</h3>
+        <div class="room-facts">
+            ${room.facilities.map(item =>
+                `<span class="fact">${escapeHTML(item)}</span>`
+            ).join("")}
+        </div>
+        <p class="notice">
+            Demo listing: confirm availability, exact address,
+            deposit terms and facilities with the owner before paying.
+        </p>
+        <br>
+        <button class="primary-btn full-btn"
+            onclick="contactOwner(${room.id})">
+            Contact Owner
+        </button>
+    `;
+
+    openModal("detailsModal");
+}
+
+function contactOwner(id) {
+    const room = rooms.find(item => item.id === id);
+    if (!room) return;
+
+    const phone = room.phone.replace(/\D/g, "");
+
+    if (!/^\d{10,15}$/.test(phone)) {
+        alert("The owner has not provided a valid contact number.");
+        return;
+    }
+
+    const message =
+        `Hello, I am interested in "${room.title}" at ${room.location}. ` +
+        `The listed rent is ${formatMoney(room.rent)} per month. ` +
+        `Is the room available?`;
+
+    window.open(
+        "https://wa.me/" + phone + "?text=" + encodeURIComponent(message),
+        "_blank",
+        "noopener,noreferrer"
+    );
+}
+
+function openOwnerForm() {
+    document.getElementById("ownerForm").reset();
+    document.getElementById("ownerNotice").classList.add("hidden");
+    openModal("ownerModal");
+}
+
+document.getElementById("ownerForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const phone = document.getElementById("ownerPhone")
+        .value.trim();
+
+    const normalizedPhone = phone.replace(/\D/g, "");
+
+    if (normalizedPhone.length < 10 ||
+        normalizedPhone.length > 15) {
+        alert("Please enter a valid phone number.");
+        return;
+    }
+
+    const room = {
+        id: nextId++,
+        title: document.getElementById("newTitle").value.trim(),
+        location: document.getElementById("newLocation").value.trim(),
+        rent: Number(document.getElementById("newRent").value),
+        deposit: Number(document.getElementById("newDeposit").value),
+        type: document.getElementById("newType").value,
+        facilities: document.getElementById("newFacilities")
+            .value.split(",")
+            .map(item => item.trim())
+            .filter(Boolean)
+            .slice(0, 8),
+        owner: document.getElementById("ownerName").value.trim(),
+        phone: normalizedPhone
+    };
+
+    if (!room.title || !room.location ||
+        !Number.isFinite(room.rent) || room.rent <= 0 ||
+        !Number.isFinite(room.deposit) || room.deposit < 0) {
+        alert("Please enter valid room details.");
+        return;
+    }
+
+    rooms.unshift(room);
+
+    selectedType = "all";
+    document.getElementById("locationSearch").value = "";
+    document.getElementById("budget").value = "all";
+    document.getElementById("roomTypeSearch").value = "all";
+
+    document.querySelectorAll(".filter-btn").forEach(button => {
+        button.classList.toggle("active", button.dataset.type === "all");
+    });
+
+    renderRooms();
+
+    closeModal("ownerModal");
+
+    document.getElementById("rooms").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    alert("Room added to this demo successfully!");
+});
+
+function openModal(id) {
+    document.getElementById(id).classList.add("open");
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+}
+
+document.querySelectorAll(".modal").forEach(modal => {
+    modal.addEventListener("click", event => {
+        if (event.target === modal) {
+            modal.classList.remove("open");
+        }
+    });
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        document.querySelectorAll(".modal").forEach(modal => {
+            modal.classList.remove("open");
+        });
+    }
+});
+
+renderRooms();
+</script>
+
+</body>
+</html>
